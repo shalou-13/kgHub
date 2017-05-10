@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GraphServerConfig>
+	<GraphTypeNode id="Technology" name="科技" active="true">
+		<GraphListNode>
+			<GraphNode id="FuneralInstitute" name="殡葬机构" active="true">
+				<GraphServers>
+					<GraphServer type="neo4j" URL="bolt://localhost:7474" userName="neo4j" password="123456" state="on" ></GraphServer>
+				</GraphServers>
+				<GraphSearchServers>
+					<GraphSearchServer scheme="http" host="localhost:8080" enterPath="/kgHub" engineClass="InstituteSearchEngine" state="on"></GraphSearchServer>
+				</GraphSearchServers>
+			</GraphNode>
+			<GraphNode id="FuneralProduct" name="殡葬产品" active="false">
+				<GraphServers>
+					<GraphServer type="neo4j" URL="bolt://localhost:7474" userName="neo4j" password="123456" state="on" ></GraphServer>
+				</GraphServers>
+				<GraphSearchServers>
+					<GraphSearchServer scheme="http" host="localhost:8080" enterPath="/kgHub" engineClass="ProductSearchEngine" state="on"></GraphSearchServer>
+				</GraphSearchServers>
+			</GraphNode>
+			<GraphNode id="FuneralPatent" name="殡葬专利" active="false">
+				<GraphServers>
+					<GraphServer type="neo4j" URL="bolt://localhost:7474" userName="neo4j" password="123456" state="on" ></GraphServer>
+				</GraphServers>
+				<GraphSearchServers>
+				</GraphSearchServers>
+			</GraphNode>
+		</GraphListNode>
+	</GraphTypeNode>
+	<GraphTypeNode id="Policy" name="政策" active="true">
+		<GraphListNode>
+			<GraphNode id="FuneralPolicy" name="殡葬政策" active="true">
+				<GraphServers>
+					<GraphServer type="neo4j" URL="bolt://localhost:7474" userName="neo4j" password="123456" state="on" ></GraphServer>
+				</GraphServers>
+				<GraphSearchServers>
+					<GraphSearchServer scheme="http" host="localhost:8080" enterPath="/kgHub" engineClass="PolicySearchEngine" state="on"></GraphSearchServer>
+				</GraphSearchServers>
+			</GraphNode>
+		</GraphListNode>
+	</GraphTypeNode>
+	<GraphTypeNode id="Culture" name="文化" active="true">
+		<GraphListNode>
+			<GraphNode id="FuneralCulture" name="殡葬风俗" active="true">
+				<GraphServers>
+					<GraphServer type="neo4j" URL="bolt://localhost:7474" userName="neo4j" password="123456" state="on" ></GraphServer>
+				</GraphServers>
+				<GraphSearchServers>
+				</GraphSearchServers>
+			</GraphNode>
+			<GraphNode id="FuneralBook" name="殡葬图书" active="false">
+				<GraphServers>
+					<GraphServer type="neo4j" URL="bolt://localhost:7474" userName="neo4j" password="123456" state="on" ></GraphServer>
+				</GraphServers>
+				<GraphSearchServers>
+					<GraphSearchServer scheme="http" host="localhost:8080" enterPath="/kgHub" engineClass="BookSearchEngine" state="on"></GraphSearchServer>
+				</GraphSearchServers>
+			</GraphNode>
+		</GraphListNode>
+	</GraphTypeNode>
+</GraphServerConfig>

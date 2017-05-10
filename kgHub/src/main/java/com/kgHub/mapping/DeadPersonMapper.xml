@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kgHub.dao.DeadPersonMapper">
+  <resultMap id="BaseResultMap" type="com.kgHub.pojo.DeadPerson">
+    <id column="ID" jdbcType="VARCHAR" property="ID" />
+    <result column="recordID" jdbcType="VARCHAR" property="recordID" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="IDCardCode" jdbcType="VARCHAR" property="IDCardCode" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="disease" jdbcType="INTEGER" property="disease" />
+    <result column="instCode" jdbcType="VARCHAR" property="instCode" />
+    <result column="areaCode" jdbcType="VARCHAR" property="areaCode" />
+    <result column="deadDate" jdbcType="TIMESTAMP" property="deadDate" />
+    <result column="birthDay" jdbcType="TIMESTAMP" property="birthDay" />
+    <result column="PhaseID" jdbcType="VARCHAR" property="phaseID" />
+    <result column="insertTime" jdbcType="TIMESTAMP" property="insertTime" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, recordID, name, IDCardCode, age, disease, instCode, areaCode, deadDate, birthDay, 
+    PhaseID, insertTime, gender
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from deaddiseaseanalysisdatatable
+    where ID = #{ID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from deaddiseaseanalysisdatatable
+    where ID = #{ID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kgHub.pojo.DeadPerson">
+    insert into deaddiseaseanalysisdatatable (ID, recordID, name, 
+      IDCardCode, age, disease, 
+      instCode, areaCode, deadDate, 
+      birthDay, PhaseID, insertTime, 
+      gender)
+    values (#{ID,jdbcType=VARCHAR}, #{recordID,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{IDCardCode,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{disease,jdbcType=INTEGER}, 
+      #{instCode,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, #{deadDate,jdbcType=TIMESTAMP}, 
+      #{birthDay,jdbcType=TIMESTAMP}, #{phaseID,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
+      #{gender,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kgHub.pojo.DeadPerson">
+    insert into deaddiseaseanalysisdatatable
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        ID,
+      </if>
+      <if test="recordID != null">
+        recordID,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="IDCardCode != null">
+        IDCardCode,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="disease != null">
+        disease,
+      </if>
+      <if test="instCode != null">
+        instCode,
+      </if>
+      <if test="areaCode != null">
+        areaCode,
+      </if>
+      <if test="deadDate != null">
+        deadDate,
+      </if>
+      <if test="birthDay != null">
+        birthDay,
+      </if>
+      <if test="phaseID != null">
+        PhaseID,
+      </if>
+      <if test="insertTime != null">
+        insertTime,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        #{ID,jdbcType=VARCHAR},
+      </if>
+      <if test="recordID != null">
+        #{recordID,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="IDCardCode != null">
+        #{IDCardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="disease != null">
+        #{disease,jdbcType=INTEGER},
+      </if>
+      <if test="instCode != null">
+        #{instCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deadDate != null">
+        #{deadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="birthDay != null">
+        #{birthDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phaseID != null">
+        #{phaseID,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null">
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kgHub.pojo.DeadPerson">
+    update deaddiseaseanalysisdatatable
+    <set>
+      <if test="recordID != null">
+        recordID = #{recordID,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="IDCardCode != null">
+        IDCardCode = #{IDCardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="disease != null">
+        disease = #{disease,jdbcType=INTEGER},
+      </if>
+      <if test="instCode != null">
+        instCode = #{instCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        areaCode = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deadDate != null">
+        deadDate = #{deadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="birthDay != null">
+        birthDay = #{birthDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phaseID != null">
+        PhaseID = #{phaseID,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null">
+        insertTime = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{ID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kgHub.pojo.DeadPerson">
+    update deaddiseaseanalysisdatatable
+    set recordID = #{recordID,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      IDCardCode = #{IDCardCode,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      disease = #{disease,jdbcType=INTEGER},
+      instCode = #{instCode,jdbcType=VARCHAR},
+      areaCode = #{areaCode,jdbcType=VARCHAR},
+      deadDate = #{deadDate,jdbcType=TIMESTAMP},
+      birthDay = #{birthDay,jdbcType=TIMESTAMP},
+      PhaseID = #{phaseID,jdbcType=VARCHAR},
+      insertTime = #{insertTime,jdbcType=TIMESTAMP},
+      gender = #{gender,jdbcType=INTEGER}
+    where ID = #{ID,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectAllDeadPersons" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from deaddiseaseanalysisdatatable
+  </select>
+</mapper>

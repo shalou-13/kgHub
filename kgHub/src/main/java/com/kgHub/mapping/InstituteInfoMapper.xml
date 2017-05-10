@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kgHub.dao.InstituteInfoMapper">
+  <resultMap id="BaseResultMap" type="com.kgHub.pojo.InstituteInfo">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="instName" jdbcType="VARCHAR" property="instName" />
+    <result column="instCode" jdbcType="VARCHAR" property="instCode" />
+    <result column="regisAddr" jdbcType="VARCHAR" property="regisAddr" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="areaCode" jdbcType="VARCHAR" property="areaCode" />
+    <result column="legalPersonName" jdbcType="VARCHAR" property="legalPersonName" />
+    <result column="legalPersonID" jdbcType="VARCHAR" property="legalPersonID" />
+    <result column="orgType" jdbcType="CHAR" property="orgType" />
+    <result column="orgSubType" jdbcType="TINYINT" property="orgSubType" />
+    <result column="busiScop" jdbcType="VARCHAR" property="busiScop" />
+    <result column="orgPhotos" jdbcType="VARCHAR" property="orgPhotos" />
+    <result column="orgTel" jdbcType="VARCHAR" property="orgTel" />
+    <result column="orgEmail" jdbcType="VARCHAR" property="orgEmail" />
+    <result column="licenseScanning" jdbcType="VARCHAR" property="licenseScanning" />
+    <result column="codeScanning" jdbcType="VARCHAR" property="codeScanning" />
+    <result column="docScanning" jdbcType="VARCHAR" property="docScanning" />
+    <result column="foundTime" jdbcType="TIMESTAMP" property="foundTime" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="PhaseID" jdbcType="VARCHAR" property="phaseID" />
+    <result column="SourceID" jdbcType="VARCHAR" property="sourceID" />
+    <result column="insertTime" jdbcType="TIMESTAMP" property="insertTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kgHub.pojo.InstituteInfo">
+    <result column="orgIntro" jdbcType="LONGVARCHAR" property="orgIntro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, instName, instCode, regisAddr, longitude, latitude, province, city, areaCode, 
+    legalPersonName, legalPersonID, orgType, orgSubType, busiScop, orgPhotos, orgTel, 
+    orgEmail, licenseScanning, codeScanning, docScanning, foundTime, state, PhaseID, 
+    SourceID, insertTime
+  </sql>
+  <sql id="Blob_Column_List">
+    orgIntro
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from instituteinfo
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from instituteinfo
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kgHub.pojo.InstituteInfo">
+    insert into instituteinfo (Id, instName, instCode, 
+      regisAddr, longitude, latitude, 
+      province, city, areaCode, 
+      legalPersonName, legalPersonID, orgType, 
+      orgSubType, busiScop, orgPhotos, 
+      orgTel, orgEmail, licenseScanning, 
+      codeScanning, docScanning, foundTime, 
+      state, PhaseID, SourceID, 
+      insertTime, orgIntro)
+    values (#{id,jdbcType=VARCHAR}, #{instName,jdbcType=VARCHAR}, #{instCode,jdbcType=VARCHAR}, 
+      #{regisAddr,jdbcType=VARCHAR}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, 
+      #{legalPersonName,jdbcType=VARCHAR}, #{legalPersonID,jdbcType=VARCHAR}, #{orgType,jdbcType=CHAR}, 
+      #{orgSubType,jdbcType=TINYINT}, #{busiScop,jdbcType=VARCHAR}, #{orgPhotos,jdbcType=VARCHAR}, 
+      #{orgTel,jdbcType=VARCHAR}, #{orgEmail,jdbcType=VARCHAR}, #{licenseScanning,jdbcType=VARCHAR}, 
+      #{codeScanning,jdbcType=VARCHAR}, #{docScanning,jdbcType=VARCHAR}, #{foundTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=TINYINT}, #{phaseID,jdbcType=VARCHAR}, #{sourceID,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP}, #{orgIntro,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kgHub.pojo.InstituteInfo">
+    insert into instituteinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="instName != null">
+        instName,
+      </if>
+      <if test="instCode != null">
+        instCode,
+      </if>
+      <if test="regisAddr != null">
+        regisAddr,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="areaCode != null">
+        areaCode,
+      </if>
+      <if test="legalPersonName != null">
+        legalPersonName,
+      </if>
+      <if test="legalPersonID != null">
+        legalPersonID,
+      </if>
+      <if test="orgType != null">
+        orgType,
+      </if>
+      <if test="orgSubType != null">
+        orgSubType,
+      </if>
+      <if test="busiScop != null">
+        busiScop,
+      </if>
+      <if test="orgPhotos != null">
+        orgPhotos,
+      </if>
+      <if test="orgTel != null">
+        orgTel,
+      </if>
+      <if test="orgEmail != null">
+        orgEmail,
+      </if>
+      <if test="licenseScanning != null">
+        licenseScanning,
+      </if>
+      <if test="codeScanning != null">
+        codeScanning,
+      </if>
+      <if test="docScanning != null">
+        docScanning,
+      </if>
+      <if test="foundTime != null">
+        foundTime,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="phaseID != null">
+        PhaseID,
+      </if>
+      <if test="sourceID != null">
+        SourceID,
+      </if>
+      <if test="insertTime != null">
+        insertTime,
+      </if>
+      <if test="orgIntro != null">
+        orgIntro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="instName != null">
+        #{instName,jdbcType=VARCHAR},
+      </if>
+      <if test="instCode != null">
+        #{instCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regisAddr != null">
+        #{regisAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonName != null">
+        #{legalPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonID != null">
+        #{legalPersonID,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null">
+        #{orgType,jdbcType=CHAR},
+      </if>
+      <if test="orgSubType != null">
+        #{orgSubType,jdbcType=TINYINT},
+      </if>
+      <if test="busiScop != null">
+        #{busiScop,jdbcType=VARCHAR},
+      </if>
+      <if test="orgPhotos != null">
+        #{orgPhotos,jdbcType=VARCHAR},
+      </if>
+      <if test="orgTel != null">
+        #{orgTel,jdbcType=VARCHAR},
+      </if>
+      <if test="orgEmail != null">
+        #{orgEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseScanning != null">
+        #{licenseScanning,jdbcType=VARCHAR},
+      </if>
+      <if test="codeScanning != null">
+        #{codeScanning,jdbcType=VARCHAR},
+      </if>
+      <if test="docScanning != null">
+        #{docScanning,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null">
+        #{foundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="phaseID != null">
+        #{phaseID,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceID != null">
+        #{sourceID,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null">
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgIntro != null">
+        #{orgIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kgHub.pojo.InstituteInfo">
+    update instituteinfo
+    <set>
+      <if test="instName != null">
+        instName = #{instName,jdbcType=VARCHAR},
+      </if>
+      <if test="instCode != null">
+        instCode = #{instCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regisAddr != null">
+        regisAddr = #{regisAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        areaCode = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonName != null">
+        legalPersonName = #{legalPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonID != null">
+        legalPersonID = #{legalPersonID,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null">
+        orgType = #{orgType,jdbcType=CHAR},
+      </if>
+      <if test="orgSubType != null">
+        orgSubType = #{orgSubType,jdbcType=TINYINT},
+      </if>
+      <if test="busiScop != null">
+        busiScop = #{busiScop,jdbcType=VARCHAR},
+      </if>
+      <if test="orgPhotos != null">
+        orgPhotos = #{orgPhotos,jdbcType=VARCHAR},
+      </if>
+      <if test="orgTel != null">
+        orgTel = #{orgTel,jdbcType=VARCHAR},
+      </if>
+      <if test="orgEmail != null">
+        orgEmail = #{orgEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseScanning != null">
+        licenseScanning = #{licenseScanning,jdbcType=VARCHAR},
+      </if>
+      <if test="codeScanning != null">
+        codeScanning = #{codeScanning,jdbcType=VARCHAR},
+      </if>
+      <if test="docScanning != null">
+        docScanning = #{docScanning,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null">
+        foundTime = #{foundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="phaseID != null">
+        PhaseID = #{phaseID,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceID != null">
+        SourceID = #{sourceID,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null">
+        insertTime = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgIntro != null">
+        orgIntro = #{orgIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kgHub.pojo.InstituteInfo">
+    update instituteinfo
+    set instName = #{instName,jdbcType=VARCHAR},
+      instCode = #{instCode,jdbcType=VARCHAR},
+      regisAddr = #{regisAddr,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      areaCode = #{areaCode,jdbcType=VARCHAR},
+      legalPersonName = #{legalPersonName,jdbcType=VARCHAR},
+      legalPersonID = #{legalPersonID,jdbcType=VARCHAR},
+      orgType = #{orgType,jdbcType=CHAR},
+      orgSubType = #{orgSubType,jdbcType=TINYINT},
+      busiScop = #{busiScop,jdbcType=VARCHAR},
+      orgPhotos = #{orgPhotos,jdbcType=VARCHAR},
+      orgTel = #{orgTel,jdbcType=VARCHAR},
+      orgEmail = #{orgEmail,jdbcType=VARCHAR},
+      licenseScanning = #{licenseScanning,jdbcType=VARCHAR},
+      codeScanning = #{codeScanning,jdbcType=VARCHAR},
+      docScanning = #{docScanning,jdbcType=VARCHAR},
+      foundTime = #{foundTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=TINYINT},
+      PhaseID = #{phaseID,jdbcType=VARCHAR},
+      SourceID = #{sourceID,jdbcType=VARCHAR},
+      insertTime = #{insertTime,jdbcType=TIMESTAMP},
+      orgIntro = #{orgIntro,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kgHub.pojo.InstituteInfo">
+    update instituteinfo
+    set instName = #{instName,jdbcType=VARCHAR},
+      instCode = #{instCode,jdbcType=VARCHAR},
+      regisAddr = #{regisAddr,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      areaCode = #{areaCode,jdbcType=VARCHAR},
+      legalPersonName = #{legalPersonName,jdbcType=VARCHAR},
+      legalPersonID = #{legalPersonID,jdbcType=VARCHAR},
+      orgType = #{orgType,jdbcType=CHAR},
+      orgSubType = #{orgSubType,jdbcType=TINYINT},
+      busiScop = #{busiScop,jdbcType=VARCHAR},
+      orgPhotos = #{orgPhotos,jdbcType=VARCHAR},
+      orgTel = #{orgTel,jdbcType=VARCHAR},
+      orgEmail = #{orgEmail,jdbcType=VARCHAR},
+      licenseScanning = #{licenseScanning,jdbcType=VARCHAR},
+      codeScanning = #{codeScanning,jdbcType=VARCHAR},
+      docScanning = #{docScanning,jdbcType=VARCHAR},
+      foundTime = #{foundTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=TINYINT},
+      PhaseID = #{phaseID,jdbcType=VARCHAR},
+      SourceID = #{sourceID,jdbcType=VARCHAR},
+      insertTime = #{insertTime,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectAllInstituteInfos" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from instituteinfo
+  </select>
+</mapper>
