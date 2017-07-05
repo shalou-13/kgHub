@@ -25,7 +25,5 @@ public class InstituteInfoService implements IInstituteInfoService {
 	public ArrayList<InstituteInfo> getAllInstituteInfos() {
 		return (ArrayList<InstituteInfo>)this.instituteInfoDao.selectAllInstituteInfos();
 	}
-	
-	
 
 }
