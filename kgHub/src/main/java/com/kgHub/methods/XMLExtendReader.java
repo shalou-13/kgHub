@@ -75,6 +75,7 @@ public class XMLExtendReader {
 		    			if(server!=null)
 		    				servers.add(server);
 		    		}
+<<<<<<< HEAD
 		    		graph.setSearchServers(servers);
 		    		graphList.add(graph);
 				}
@@ -120,6 +121,54 @@ public class XMLExtendReader {
 		System.out.println(JSON.toJSONString(reader.getGraphList(), true));
 		XMLReader reader1=new XMLReader();
 		System.out.println(JSON.toJSONString(reader1.graphList,true));;
+=======
+		    		graph.setServers(servers);
+		    		graphList.add(graph);
+				}
+	    	}
+		}
+	}
+	
+	public GraphSearchServerConfig parseGraphServer(Element element){
+		GraphSearchServerConfig server = null;
+		if(element.getName().equals("GraphSearchServerConfig")){
+			String state = element.attribute("state").getText();
+			if(state.equals("on")){
+				GraphSearchServerConfig temp = new GraphSearchServerConfig();
+				temp.setScheme(element.attribute("scheme").getText());
+				temp.setHost(element.attribute("host").getText());
+				temp.setEnterPath(element.attribute("enterPath").getText());
+				temp.setEngineClass(element.attribute("engineClass").getText());
+				temp.setState(true);
+				server = temp;
+			}
+		}
+		return server;
+		
+	}
+	
+	
+	
+	public ArrayList<GraphNode> getGraphList() {
+		return graphList;
+	}
+
+	public void setGraphList(ArrayList<GraphNode> graphList) {
+		this.graphList = graphList;
+	}
+
+	public ArrayList<GraphTypeNode> getGraphTypeList() {
+		return graphTypeList;
+	}
+
+	public void setGraphTypeList(ArrayList<GraphTypeNode> graphTypeList) {
+		this.graphTypeList = graphTypeList;
+	}
+
+	public static void main (String args[]){
+		XMLExtendReader reader = new XMLExtendReader();
+		System.out.println(JSON.toJSONString(reader.getGraphList(), true));
+>>>>>>> refs/remotes/origin/master
 	}
 	
 }
