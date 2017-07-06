@@ -2,101 +2,130 @@ package com.kgHub.methods;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
-import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+
+import com.kgHub.pojo.GraphNode;
+import com.kgHub.pojo.GraphSearchServerConfig;
+import com.kgHub.pojo.GraphServerConfig;
 
 public class XMLReader {
 	
-    public Combinement SpecifiedMethod(Element element, Element FatherNode){
-    	Map<String, Object> map=new HashMap<String, Object>();
-    	List list=new ArrayList();
-    	if(element.getName().equals("GraphServerConfig")){
-    		List<Element> elements=element.elements();
-    		List temp=new ArrayList<>();
-    		for(Element ele:elements){
-    			temp=SpecifiedMethod(ele,null).list;
-    			for(int i=0;i<temp.size();i++){
-    				list.add(temp.get(i));
-    			}
-    		}
-    	}
-    	else if(element.getName().equals("GraphTypeNode")){
-    		List<Element> elements=element.elements();
-    		List temp=new ArrayList<>();
-    		if(element.attribute("active").getText().equals("false")==true){
-    			Combinement combinement=new Combinement(map, list);
-    			return combinement;
-    		}
-    		for(Element ele:elements){
-    			temp=SpecifiedMethod(ele, element).list;
-    			for(int i=0;i<temp.size();i++){
-    				list.add(temp.get(i));
-    			}
-    		}
-    	}
-    	else if(element.getName().equals("GraphListNode")){
-    		List<Element> graphnodes=element.elements();
-    		for(Element ele:graphnodes){
-    			list.add(SpecifiedMethod(ele, FatherNode).map);
-    		}
-    	}
-    	else if(element.getName().equals("GraphNode")){
-    		if(element.attribute("active").getText().equals("false")==true){
-    			Combinement combinement=new Combinement(map, list);
-    			return combinement;
-    		}
-    		List<Attribute> SonAttr=element.attributes();
-    		List<Attribute> FatherAttr=FatherNode.attributes();
-    		List<Element> elements=element.elements();
-    		for(Attribute attr:SonAttr){
-    			if(attr.getName().equals("active")==false)	map.put(attr.getName(),attr.getValue());
-    		}
-    		for(Attribute attr:FatherAttr){
-    			if(attr.getName().equals("active")==false)	map.put("Type"+attr.getName(),attr.getValue());
-    		}
-    		for(Element ele:elements){
-    			map.put(ele.getName(),SpecifiedMethod(ele,null).list);
-    		}
-    	}
-    	else if(element.getName().equals("GraphServers")||element.getName().equals("GraphSearchServers")){
-    		List<Element> elements=element.elements();
-    		for(Element ele:elements){
-    			if(ele.attribute("state").getText().equals("off")==true){
-    				continue;
-    			}
-    	   		Map<String,Object> temp=new HashMap<>();
-    			for(Iterator it=ele.attributeIterator();it.hasNext();){
-    				Attribute attr = (Attribute) it.next();
-    				if(attr.getName().equals("state")==false)	temp.put(attr.getName(), attr.getValue());
-    				//System.out.println(attr.getName()+" "+attr.getValue());
-    			}
-    			list.add(temp);
-    		}
-    	}
-    	else{
-    		System.out.println("unknown type");;
-    	}
-    	Combinement combinement=new Combinement(map, list);
-    	return combinement;
-    }
+	public ArrayList<GraphNode> graphList;
 	
-    public List XMLRead(Element root){
-    	return SpecifiedMethod(root,null).list;
-    }
-    
-	static class Combinement{
-		Map<String,Object> map;
-		List list;
-		
-		public Combinement(Map<String,Object> map,List list) {
-			// TODO Auto-generated constructor stub
-			this.map=map;
-			this.list=list;
+	public XMLReader(){
+		this.graphList = new ArrayList<GraphNode>();
+		 SAXReader reader = new SAXReader();
+         try {
+        	 Document doc = reader.read(this.getClass().getResourceAsStream("/graphServer.xml"));
+        	 parseRootGraphServerConfig(doc.getRootElement());
+         } catch (DocumentException e) {     
+              e.printStackTrace();   
+         }   
+	}
+	
+	
+	public GraphServerConfig parseGraphServerConfig(Element e){
+		System.out.println("parseGraphServerConfig");
+		GraphServerConfig server=null;
+		if(e.getName().equals("GraphServer")==true){
+			String state=e.attribute("state").getText();
+			if(state.equals("on")){
+				GraphServerConfig temp=new GraphServerConfig();
+				temp.setPassword(e.attribute("password").getText());
+				temp.setType(e.attribute("type").getText());
+				temp.setURL(e.attribute("URL").getText());
+				temp.setUserName(e.attribute("userName").getText());
+				temp.setState(true);
+				server=temp;
+			}
+		}
+		return server;
+	}
+	
+	public GraphSearchServerConfig parseGraphSearchServerConfig(Element e){
+		System.out.println("parseGraphSearchServerConfig");
+		GraphSearchServerConfig server=null;
+		if(e.getName().equals("GraphSearchServer")==true){
+			String state=e.attribute("state").getText();
+			if(state.equals("on")){
+				GraphSearchServerConfig temp=new GraphSearchServerConfig();
+				temp.setEngineClass(e.attribute("engineClass").getText());
+				temp.setEnterPath(e.attribute("enterPath").getText());
+				temp.setHost(e.attribute("host").getText());
+				temp.setScheme(e.attribute("scheme").getText());
+				temp.setState(true);
+			}
+		}
+		return server;
+	}
+	
+	public void parseGraphNode(Element e,String typeID){
+		System.out.println("parseGraphNode");
+		@SuppressWarnings("unchecked")
+		List<Element> elements=e.elements();
+		for(Element iter:elements){
+			if(iter.getName().equals("GraphNode")){
+				String active=iter.attribute("active").getText();
+				if(active.equals("true")){
+					GraphNode graphNode=new GraphNode();
+					graphNode.setActive(true);
+					graphNode.setId(iter.attribute("id").getText());
+					graphNode.setName(iter.attribute("name").getText());
+					graphNode.setTypeID(typeID);
+					
+					ArrayList<GraphServerConfig> servers=new ArrayList<GraphServerConfig>();
+					ArrayList<GraphSearchServerConfig> searchServers=new ArrayList<GraphSearchServerConfig>();
+					
+					@SuppressWarnings("unchecked")
+					List<Element> elements1=iter.elements();
+					for(Element iter1:elements1){
+						if(iter1.getName().equals("GraphServers")){
+							@SuppressWarnings("unchecked")
+							List<Element> elements2=iter1.elements();
+							for(Element iter2:elements2){
+								servers.add(parseGraphServerConfig(iter2));
+							}
+						}
+						if(iter1.getName().equals("GraphSearchServers")){
+							@SuppressWarnings("unchecked")
+							List<Element> elements2=iter1.elements();
+							for(Element iter2:elements2){
+								searchServers.add(parseGraphSearchServerConfig(iter2));
+							}
+						}
+					}
+					
+					graphNode.setServers(servers);
+					graphNode.setSearchServers(searchServers);
+					graphList.add(graphNode);
+				}
+			}
+		}
+	}
+	
+	public void parseGraphTypeNode(Element e){
+		System.out.println("parseGraphTypeNode");
+		String typeID=e.attribute("id").getText();
+		@SuppressWarnings("unchecked")
+		List<Element> elements=e.elements();
+		for(Element iter:elements){
+			if(iter.getName().equals("GraphListNode")){
+				parseGraphNode(iter, typeID);
+			}
+		}
+	}
+	
+	public void parseRootGraphServerConfig(Element e){
+		@SuppressWarnings("unchecked")
+		List<Element> elements=e.elements();
+		for(Element iter:elements){
+			if(iter.getName().equals("GraphTypeNode")){
+				parseGraphTypeNode(iter);
+			}
 		}
 	}
 }
