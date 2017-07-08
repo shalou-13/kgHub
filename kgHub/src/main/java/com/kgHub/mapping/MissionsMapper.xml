@@ -6,6 +6,7 @@
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="addTime" jdbcType="TIMESTAMP" property="addTime" />
     <result column="finishTime" jdbcType="TIMESTAMP" property="finishTime" />
+  	<result column="userID" jdbcType="INTEGER" property="userID" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kgHub.pojo.MissionsWithBLOBs">
     <result column="Rkeyword" jdbcType="LONGVARCHAR" property="rkeyword" />
@@ -14,7 +15,7 @@
     <result column="Akeyword" jdbcType="LONGVARCHAR" property="akeyword" />
   </resultMap>
   <sql id="Base_Column_List">
-    Id, state, addTime, finishTime
+    Id, state, addTime, finishTime, userID
   </sql>
   <sql id="Blob_Column_List">
     Rkeyword, Nkeyword, Vkeyword, Akeyword
@@ -40,11 +41,13 @@
   </delete>
   <insert id="insert" parameterType="com.kgHub.pojo.MissionsWithBLOBs">
     insert into missiontable (Id, state, addTime, 
-      finishTime, Rkeyword, Nkeyword, 
-      Vkeyword, Akeyword)
+      finishTime, userID, Rkeyword, 
+      Nkeyword, Vkeyword, Akeyword
+      )
     values (#{id,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
-      #{finishTime,jdbcType=TIMESTAMP}, #{rkeyword,jdbcType=LONGVARCHAR}, #{nkeyword,jdbcType=LONGVARCHAR}, 
-      #{vkeyword,jdbcType=LONGVARCHAR}, #{akeyword,jdbcType=LONGVARCHAR})
+      #{finishTime,jdbcType=TIMESTAMP}, #{userID,jdbcType=INTEGER}, #{rkeyword,jdbcType=LONGVARCHAR}, 
+      #{nkeyword,jdbcType=LONGVARCHAR}, #{vkeyword,jdbcType=LONGVARCHAR}, #{akeyword,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kgHub.pojo.MissionsWithBLOBs">
     insert into missiontable
@@ -60,6 +63,9 @@
       </if>
       <if test="finishTime != null">
         finishTime,
+      </if>
+      <if test="userID != null">
+        userID,
       </if>
       <if test="rkeyword != null">
         Rkeyword,
@@ -113,6 +119,9 @@
       <if test="finishTime != null">
         finishTime = #{finishTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="userID != null">
+        #{userID,jdbcType=INTEGER},
+      </if>
       <if test="rkeyword != null">
         Rkeyword = #{rkeyword,jdbcType=LONGVARCHAR},
       </if>
@@ -133,6 +142,7 @@
     set state = #{state,jdbcType=INTEGER},
       addTime = #{addTime,jdbcType=TIMESTAMP},
       finishTime = #{finishTime,jdbcType=TIMESTAMP},
+      userID = #{userID,jdbcType=INTEGER},
       Rkeyword = #{rkeyword,jdbcType=LONGVARCHAR},
       Nkeyword = #{nkeyword,jdbcType=LONGVARCHAR},
       Vkeyword = #{vkeyword,jdbcType=LONGVARCHAR},
@@ -144,6 +154,7 @@
     set state = #{state,jdbcType=INTEGER},
       addTime = #{addTime,jdbcType=TIMESTAMP},
       finishTime = #{finishTime,jdbcType=TIMESTAMP}
+      userID = #{userID,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

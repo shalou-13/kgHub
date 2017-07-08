@@ -8,18 +8,31 @@
     <result column="addTime" jdbcType="TIMESTAMP" property="addTime" />
     <result column="finishTime" jdbcType="TIMESTAMP" property="finishTime" />
   </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kgHub.pojo.ChildrenMissions">
+    <result column="Nkeyword" jdbcType="LONGVARCHAR" property="nkeyword" />
+    <result column="Vkeyword" jdbcType="LONGVARCHAR" property="vkeyword" />
+    <result column="Akeyword" jdbcType="LONGVARCHAR" property="akeyword" />
+    <result column="result" jdbcType="LONGVARCHAR" property="result" />
+  </resultMap>
   <sql id="Base_Column_List">
     Id, PId, state, addTime, finishTime
+  </sql>
+  <sql id="Blob_Column_List">
+    Nkeyword, Vkeyword, Akeyword, result
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from childmissiontable
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAllChildrenMissions" parameterType="java.lang.Integer" resultMap="BaseResultMap">
   	select
   	<include refid="Base_Column_List"/>
+  	,
+    <include refid="Blob_Column_List" />
   	from childmissiontable
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -28,9 +41,13 @@
   </delete>
   <insert id="insert" parameterType="com.kgHub.pojo.ChildrenMissions">
     insert into childmissiontable (Id, PId, state, 
-      addTime, finishTime)
+      addTime, finishTime, Nkeyword, 
+      Vkeyword, Akeyword, result
+      )
     values (#{id,jdbcType=INTEGER}, #{PId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP})
+      #{addTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, #{nkeyword,jdbcType=LONGVARCHAR}, 
+      #{vkeyword,jdbcType=LONGVARCHAR}, #{akeyword,jdbcType=LONGVARCHAR}, #{result,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.kgHub.pojo.ChildrenMissions">
     insert into childmissiontable
@@ -50,6 +67,18 @@
       <if test="finishTime != null">
         finishTime,
       </if>
+      <if test="nkeyword != null">
+        Nkeyword,
+      </if>
+      <if test="vkeyword != null">
+        Vkeyword,
+      </if>
+      <if test="akeyword != null">
+        Akeyword,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -66,6 +95,18 @@
       </if>
       <if test="finishTime != null">
         #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nkeyword != null">
+        #{nkeyword,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="vkeyword != null">
+        #{vkeyword,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="akeyword != null">
+        #{akeyword,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -92,7 +133,11 @@
     set PId = #{PId,jdbcType=INTEGER},
       state = #{state,jdbcType=INTEGER},
       addTime = #{addTime,jdbcType=TIMESTAMP},
-      finishTime = #{finishTime,jdbcType=TIMESTAMP}
+      finishTime = #{finishTime,jdbcType=TIMESTAMP},
+      Nkeyword = #{nkeyword,jdbcType=LONGVARCHAR},
+      Vkeyword = #{vkeyword,jdbcType=LONGVARCHAR},
+      Akeyword = #{akeyword,jdbcType=LONGVARCHAR},
+      result = #{result,jdbcType=LONGVARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -11,6 +11,8 @@ public class Missions {
 
     private Date finishTime;
 
+    private Integer userID;
+    
     public Integer getId() {
         return id;
     }
@@ -41,5 +43,13 @@ public class Missions {
 
     public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+    }
+    
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 }
