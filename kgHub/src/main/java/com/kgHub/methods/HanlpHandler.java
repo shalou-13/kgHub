@@ -8,10 +8,10 @@ import java.util.Map;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.Segment;
 import com.hankcs.hanlp.seg.common.Term;
+import com.hankcs.hanlp.tokenizer.BasicTokenizer;
 
-import net.sf.json.JSONObject;
 
-public class hanlp {
+public class HanlpHandler {
 	
 	public static Map<String,List<String>> nlp(String text){
 		Segment segment=HanLP.newSegment().enableCustomDictionary(true);
@@ -41,8 +41,6 @@ public class hanlp {
 		map.put("v",verblist);
 		map.put("n",nounlist);
 		map.put("ad",adlist);
-		JSONObject jsonObject=JSONObject.fromObject(map);
-		System.out.println(jsonObject);
 		return map;
 	}
 	
@@ -74,8 +72,6 @@ public class hanlp {
 		map.put("v",verbmap);
 		map.put("n",nounmap);
 		map.put("ad",admap);
-		JSONObject jsonObject=JSONObject.fromObject(map);
-		System.out.println(jsonObject);
 		return map;
 	}
 	
@@ -85,7 +81,10 @@ public class hanlp {
 	}
 	
 	public static void main(String[] args){
-		Map<String,Map<String,String>> map=hanlp.nlpspecific("测试自定义分词词分义定自试测");
+		Map<String,Map<String,String>> map=HanlpHandler.nlpspecific("八宝山殡仪馆的面积？");
 		System.out.println(map);
+		System.out.println(BasicTokenizer.segment("八宝山殡仪馆怎么走？"));
+		System.out.println(BasicTokenizer.segment("八宝山殡仪馆的面积？"));
+		System.out.println(BasicTokenizer.segment("张三的火化时间？"));
 	}
 }

@@ -24,10 +24,11 @@ public class MissionService implements IMissionService{
 	
 
 	@Override
-	public boolean changeStateById(int state, int id) {
+	public boolean changeStateById(int id, int state) {
 		// TODO Auto-generated method stub
 		MissionsWithBLOBs mission=new MissionsWithBLOBs();
 		mission.setState(state);
+		mission.setId(id);
 		try {
 			missionMapperDao.updateByPrimaryKeySelective(mission);
 		}catch(Exception e) {
@@ -62,14 +63,14 @@ public class MissionService implements IMissionService{
 	}
 
 	@Override
-	public boolean insertMission(String Rkeyword, String Nkeyword, String Vkeyword, String Akeyword, int state) {
+	public boolean insertMission(MissionsWithBLOBs missionsWithBLOBs) {
 		// TODO Auto-generated method stub
-		MissionsWithBLOBs missionsWithBLOBs=new MissionsWithBLOBs();
+		/*MissionsWithBLOBs missionsWithBLOBs=new MissionsWithBLOBs();
 		missionsWithBLOBs.setRkeyword(Rkeyword);
 		missionsWithBLOBs.setNkeyword(Nkeyword);
 		missionsWithBLOBs.setVkeyword(Vkeyword);
 		missionsWithBLOBs.setAkeyword(Akeyword);
-		missionsWithBLOBs.setState(state);
+		missionsWithBLOBs.setState(state);*/
 		try {
 			missionMapperDao.insertSelective(missionsWithBLOBs);
 		} catch (Exception e) {

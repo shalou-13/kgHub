@@ -46,11 +46,11 @@ public class ChildrenMissionService implements IChildrenMissionService{
 	}
 
 	@Override
-	public boolean insertChildMission(int PId, int state) {
+	public boolean insertChildMission(ChildrenMissions childrenMission) {
 		// TODO Auto-generated method stub
-		ChildrenMissions childrenMission=new ChildrenMissions();
+		/*ChildrenMissions childrenMission=new ChildrenMissions();
 		childrenMission.setState(state);
-		childrenMission.setPId(PId);
+		childrenMission.setPId(PId);*/
 		try{
 			this.childrenMissionsDao.insertSelective(childrenMission);
 		}

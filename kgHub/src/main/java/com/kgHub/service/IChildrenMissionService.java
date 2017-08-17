@@ -6,7 +6,7 @@ import com.kgHub.pojo.ChildrenMissions;
 
 public interface IChildrenMissionService {
 	
-	public boolean insertChildMission(int PId,int state); 
+	public boolean insertChildMission(ChildrenMissions childrenMission); 
 	
 	public ArrayList<ChildrenMissions> GetAllChildMissions();
 

@@ -2,12 +2,11 @@ package com.kgHub.service;
 
 import java.util.ArrayList;
 
-import com.kgHub.pojo.Missions;
 import com.kgHub.pojo.MissionsWithBLOBs;
 
 public interface IMissionService {
 	
-	public boolean insertMission(String Rkeyword,String Nkeyword,String Vkeyword,String Akeyword,int state);
+	public boolean insertMission(MissionsWithBLOBs missionsWithBLOBs);
 	
 	public boolean changeStateById(int state, int id);
 	

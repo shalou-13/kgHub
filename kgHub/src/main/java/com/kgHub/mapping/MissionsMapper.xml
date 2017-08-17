@@ -39,22 +39,19 @@
     delete from missiontable
     where Id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.kgHub.pojo.MissionsWithBLOBs">
-    insert into missiontable (Id, state, addTime, 
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.kgHub.pojo.MissionsWithBLOBs">
+    insert into missiontable (state, addTime, 
       finishTime, userID, Rkeyword, 
       Nkeyword, Vkeyword, Akeyword
       )
-    values (#{id,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
+    values (#{state,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
       #{finishTime,jdbcType=TIMESTAMP}, #{userID,jdbcType=INTEGER}, #{rkeyword,jdbcType=LONGVARCHAR}, 
       #{nkeyword,jdbcType=LONGVARCHAR}, #{vkeyword,jdbcType=LONGVARCHAR}, #{akeyword,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.kgHub.pojo.MissionsWithBLOBs">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.kgHub.pojo.MissionsWithBLOBs">
     insert into missiontable
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        Id,
-      </if>
       <if test="state != null">
         state,
       </if>
@@ -81,9 +78,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="state != null">
         #{state,jdbcType=INTEGER},
       </if>
@@ -92,6 +86,9 @@
       </if>
       <if test="finishTime != null">
         #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userID != null">
+        #{userID,jdbcType=INTEGER},
       </if>
       <if test="rkeyword != null">
         #{rkeyword,jdbcType=LONGVARCHAR},

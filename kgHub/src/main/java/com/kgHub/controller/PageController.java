@@ -17,5 +17,11 @@ public class PageController {
 		ModelAndView mav = new ModelAndView("test");
 		return mav;
 	}
+	@RequestMapping("/kgHubSearch")
+	public ModelAndView kgHubSearch(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("kgHubSearch");
+		return mav;
+	}
 
 }
