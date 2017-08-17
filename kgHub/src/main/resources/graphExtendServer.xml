@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GraphServerConfig>
-	<GraphTypeNode id="Technology" name="科技" active="true">
+	<!-- <GraphTypeNode id="Technology" name="科技" active="true">
 		<GraphList>
 			<GraphNode id="FuneralInstitute" name="殡葬机构" active="true">
-				<GraphSearchServerConfig scheme="http" host="localhost:8080" enterPath="/kgHub" engineClass="InstituteSearchEngine" state="on"></GraphSearchServerConfig>
+				<GraphSearchServerConfig scheme="http" host="localhost:8080" enterPath="/kgSearch/testSearch" engineClass="com.kgSearch.method.impl.ReNeo4jHandler" state="on"></GraphSearchServerConfig>
 			</GraphNode>
-			<GraphNode id="FuneralProduct" name="殡葬产品" active="false">
-				<GraphSearchServerConfig scheme="http" host="localhost:8080" enterPath="/kgHub" engineClass="ProductSearchEngine" state="on"></GraphSearchServerConfig>
-			</GraphNode>
-			<GraphNode id="FuneralPatent" name="殡葬专利" active="false">
-				<GraphSearchServerConfig scheme="http" host="localhost:8080" enterPath="/kgHub" engineClass="PatentSearchEngine" state="on"></GraphSearchServerConfig>
+		</GraphList>
+	</GraphTypeNode> -->
+	<GraphTypeNode id="Movie" name="电影" active="true">
+		<GraphList>
+			<GraphNode id="Neo4jMovie" name="Neo4j电影" active="true">
+				<GraphSearchServerConfig scheme="http" host="localhost:8080" enterPath="/kgSearch/movieSearch" engineClass="com.kgSearch.method.impl.ReNeo4jHandler" state="on"></GraphSearchServerConfig>
 			</GraphNode>
 		</GraphList>
 	</GraphTypeNode>
-	<GraphTypeNode id="Policy" name="政策" active="true">
+	<GraphTypeNode id="Customer" name="顾客" active="true">
 		<GraphList>
-			<GraphNode id="FuneralPolicy" name="殡葬政策" active="true">
-				<GraphSearchServerConfig scheme="http" host="localhost:8080" enterPath="/kgHub" engineClass="PolicySearchEngine" state="on"></GraphSearchServerConfig>
-			</GraphNode>
-		</GraphList>
-	</GraphTypeNode>
-	<GraphTypeNode id="Culture" name="文化" active="true">
-		<GraphList>
-			<GraphNode id="FuneralCulture" name="殡葬风俗" active="true">
-				<GraphSearchServerConfig scheme="http" host="localhost:8080" enterPath="/kgHub" engineClass="CultureSearchEngine" state="on"></GraphSearchServerConfig>
-			</GraphNode>
-			<GraphNode id="FuneralBook" name="殡葬图书" active="false">
-				<GraphSearchServerConfig scheme="http" host="localhost:8080" enterPath="/kgHub" engineClass="BookSearchEngine" state="on"></GraphSearchServerConfig>
+			<GraphNode id="Neo4jCustomer" name="Neo4j顾客" active="true">
+				<GraphSearchServerConfig scheme="http" host="localhost:8080" enterPath="/kgSearch/customerSearch" engineClass="com.kgSearch.method.impl.CustomerNeo4jHandler" state="on"></GraphSearchServerConfig>
 			</GraphNode>
 		</GraphList>
 	</GraphTypeNode>

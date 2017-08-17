@@ -18,7 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.kgHub.methods.HanlpHandler;
 import com.kgHub.methods.XMLExtendReader;
-import com.kgHub.pojo.ChildrenMissions;
+import com.kgHub.pojo.ChildrenMissionsWithBLOBs;
 import com.kgHub.pojo.GraphNode;
 import com.kgHub.pojo.GraphSearchServerConfig;
 import com.kgHub.pojo.MissionsWithBLOBs;
@@ -33,9 +33,9 @@ public class TaskController {
 	private static Logger logger = Logger.getLogger(TaskController.class);
 	
 	@Resource
-	private  MissionService missionService = null;
+	private  MissionService missionService;
 	@Resource
-	private ChildrenMissionService childrenMissionService=null;
+	private ChildrenMissionService childrenMissionService;
 	
 	@RequestMapping(value="/searchGraph",method=RequestMethod.POST)
 	@ResponseBody
@@ -57,12 +57,14 @@ public class TaskController {
 			if(missionID){
 				XMLExtendReader reader = new XMLExtendReader();
 				ArrayList<GraphNode> graphList = reader.getGraphList();
+				HashMap<String, Object> result = new HashMap<String, Object>();
 				for(GraphNode graph: graphList){
 					if(graph.searchServers.size()!=0){
 						GraphSearchServerConfig server = graph.searchServers.get(0);
-						ChildrenMissions childrenMission=new ChildrenMissions();
+						ChildrenMissionsWithBLOBs childrenMission=new ChildrenMissionsWithBLOBs();
 						childrenMission.setState(1);
 						childrenMission.setPId(missionsWithBLOBs.getId());
+						childrenMission.setGraphID(graph.getId());
 						boolean subMissionID = childrenMissionService.insertChildMission(childrenMission);
 						if(subMissionID){
 							Map<String, Object> json = new HashMap<String, Object>();
@@ -70,18 +72,18 @@ public class TaskController {
 							json.put("typeID", graph.getTypeID());
 							json.put("engine", graph.getSearchServers().get(0).getEngineClass());
 							json.put("subMissionID", childrenMission.getId());
-							String result = HttpClientHandler.doPost(server.getEnterPath(), server.getHost(), server.getScheme(), JSON.toJSONString(json));
+							String sub_result = HttpClientHandler.doPost(server.getEnterPath(), server.getHost(), server.getScheme(), JSON.toJSONString(json));
 							childrenMissionService.changeState(childrenMission.getId(), 3);
 							missionService.changeStateById(missionsWithBLOBs.getId(), 3);
-							JsonHandler.writeJsonStreamFromResponse(response, result);
+							result.put(graph.getId(), JSON.parse(sub_result));
 						}else{
 							JsonHandler.writeJsonStreamFromResponse(response, JSONObject.parseObject(JSON.toJSONString(JsonHandler.writeJsontoResponse(3004, ""))).toString());
 						}
-						
 					}else{
 						JsonHandler.writeJsonStreamFromResponse(response, JSONObject.parseObject(JSON.toJSONString(JsonHandler.writeJsontoResponse(3005, ""))).toString());
 					}
 				}
+				JsonHandler.writeJsonStreamFromResponse(response, JSONObject.parseObject(JSON.toJSONString(JsonHandler.writeJsontoResponse(3000, result))).toString());
 				
 			}else{
 				JsonHandler.writeJsonStreamFromResponse(response, JSONObject.parseObject(JSON.toJSONString(JsonHandler.writeJsontoResponse(3003, ""))).toString());

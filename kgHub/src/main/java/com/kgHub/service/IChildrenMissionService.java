@@ -1,15 +1,12 @@
 package com.kgHub.service;
 
-import java.util.ArrayList;
-
 import com.kgHub.pojo.ChildrenMissions;
+import com.kgHub.pojo.ChildrenMissionsWithBLOBs;
 
 public interface IChildrenMissionService {
 	
-	public boolean insertChildMission(ChildrenMissions childrenMission); 
+	public boolean insertChildMission(ChildrenMissionsWithBLOBs childrenMission); 
 	
-	public ArrayList<ChildrenMissions> GetAllChildMissions();
-
 	public ChildrenMissions GetChildMissionById(int id);
 	
 	public boolean changeState(int id,int newstate);

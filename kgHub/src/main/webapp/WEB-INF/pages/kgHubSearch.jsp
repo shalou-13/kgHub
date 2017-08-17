@@ -6,6 +6,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/static/bootstrap-3.3.7/css/bootstrap.min.css">
 <title>KgHub搜索</title>
+<style type="text/css">
+.result_seg h4{
+	color: #4177D4;font-weight: bold;
+}
+
+.result_seg ul{
+	list-style: none;
+}
+.result_seg ul li{
+	padding: 5px 2px;
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -24,38 +36,8 @@
 		<div class="col-lg-12">
 		<br/>
 		<h3>查询结果</h3>
-			<div>
-				<label>RTL</label>
-				<ul id="RTL"></ul>
-			</div>
-			<div>
-				<label>ELL</label>
-				<ul id="ELL"></ul>
-			</div>
-			<div>
-				<label>EL</label>
-				<ul id="EL"></ul>
-			</div>
-			<div>
-				<label>TResult</label>
-				<ul id="TResult"></ul>
-			</div>
-			<div>
-				<label>SResult</label>
-				<ul id="SResult"></ul>
-			</div>
-			<div>
-				<label>sub_RTLL</label>
-				<ul id="sub_RTL"></ul>
-			</div>
-			<div>
-				<label>sub_ELL</label>
-				<ul id="sub_ELL"></ul>
-			</div>
-			<div>
-				<label>sub_EL</label>
-				<ul id="sub_EL"></ul>
-			</div>
+		<div id="result">
+		</div>
 		</div>
 	</div>
 </div>
@@ -76,76 +58,94 @@ function getSearchResult(keyword) {
 				url : root + "/searchGraph",
 				data : JSON.stringify({text:keyword}),
 				success : function(data) {
-					$("ul").empty();
-					if(data.state==4000){
-						if(data.result.RTL && data.result.RTL.length){
-							for(var i=0;i<data.result.RTL.length;i++){
-								$("#RTL").append("<li>"+JSON.stringify(data.result.RTL[i])+"</li>");
-							}
-								
-						}else{
-							$("#RTL").append("<li>空</li>");
-						}
-						if(data.result.ELL && data.result.ELL.length){
-							for(var i=0;i<data.result.ELL.length;i++){
-								$("#ELL").append("<li>"+JSON.stringify(data.result.ELL[i])+"</li>");
-							}
-								
-						}else{
-							$("#ELL").append("<li>空</li>");
-						}
-						if(data.result.EL && data.result.EL.length){
-							for(var i=0;i<data.result.EL.length;i++){
-								$("#EL").append("<li>"+JSON.stringify(data.result.EL[i])+"</li>");
-							}
-								
-						}else{
-							$("#EL").append("<li>空</li>");
-						}
-						if(data.result.TResult && data.result.TResult.length){
-							for(var i=0;i<data.result.TResult.length;i++){
-								$("#TResult").append("<li>结点</li>");
-								for(var j=0;j<data.result.TResult[i].nodes.length;j++){
-									$("#TResult").append("<li>"+JSON.stringify(data.result.TResult[i].nodes[j])+"</li>");
+					$("#result").empty();
+					if(data.state==3000){
+						for(var graphID in data.result){
+							var rtl = "" ;
+							var ell = "";
+							var el = ""; 
+							var tresult = ""; 
+							var sresult = ""; 
+							var sub_rtl = ""; 
+							var sub_ell = ""; 
+							var sub_el = "";
+							var sub_result = data.result[graphID].result;
+							if(data.result[graphID].state==4000){
+								if(sub_result.RTL && sub_result.RTL.length){
+									for(var i=0;i<sub_result.RTL.length;i++){
+										rtl = rtl + "<li>"+JSON.stringify(sub_result.RTL[i])+"</li>";
+									}
+								}else{
+									rtl = "<li>空</li>";
 								}
-								$("#TResult").append("<li>边</li>");
-								for(var m=0;m<data.result.TResult[i].edges.length;m++){
-									$("#TResult").append("<li>"+JSON.stringify(data.result.TResult[i].edges[m])+"</li>");
+								if(sub_result.ELL && sub_result.ELL.length){
+									for(var i=0;i<sub_result.ELL.length;i++){
+										ell = ell + "<li>"+JSON.stringify(sub_result.ELL[i])+"</li>"
+									}
+								}else{
+									ell = "<li>空</li>";
+								}
+								if(sub_result.EL && sub_result.EL.length){
+									for(var i=0;i<sub_result.EL.length;i++){
+										el = el + "<li>"+JSON.stringify(sub_result.EL[i])+"</li>";
+									}
+								}else{
+									el = "<li>空</li>";
+								}
+								if(sub_result.TResult && sub_result.TResult.length){
+									for(var i=0;i<sub_result.TResult.length;i++){
+										tresult = tresult + "<li>结点</li>";
+										for(var j=0;j<sub_result.TResult[i].nodes.length;j++){
+											tresult = tresult + "<li>"+JSON.stringify(sub_result.TResult[i].nodes[j])+"</li>";
+										}
+										tresult = tresult + "<li>边</li>"
+										for(var m=0;m<sub_result.TResult[i].edges.length;m++){
+											tresult = tresult + "<li>"+JSON.stringify(sub_result.TResult[i].edges[m])+"</li>";
+										}
+									}
+								}else{
+									tresult = "<li>空</li>";
+								}
+								if(sub_result.SResult && sub_result.SResult.length){
+									for(var i=0;i<sub_result.SResult.length;i++){
+										sresult = sresult + "<li>"+JSON.stringify(sub_result.SResult[i])+"</li>";
+									}
+								}else{
+									sresult = "<li>空</li>";
+								}
+								if(sub_result.sub_RTL && sub_result.sub_RTL.length){
+									for(var i=0;i<sub_result.sub_RTL.length;i++){
+										sub_rtl = sub_rtl + "<li>"+JSON.stringify(sub_result.sub_RTL[i])+"</li>";
+									}
+								}else{
+									sub_rtl = "<li>空</li>";
+								}
+								if(sub_result.sub_ELL && sub_result.sub_ELL.length){
+									for(var i=0;i<sub_result.sub_ELL.length;i++){
+										sub_ell = sub_ell + "<li>"+JSON.stringify(sub_result.sub_ELL[i])+"</li>";
+									}
+								}else{
+									sub_ell = "<li>空</li>";
+								}
+								if(sub_result.sub_EL && sub_result.sub_EL.length){
+									for(var i=0;i<sub_result.sub_EL.length;i++){
+										sub_el = sub_el + "<li>"+JSON.stringify(sub_result.sub_EL[i])+"</li>"
+									}
+								}else{
+									sub_el = "<li>空</li>";
 								}
 							}
-						}else{
-							$("#TResult").append("<li>空</li>");
-						}
-						if(data.result.SResult && data.result.SResult.length){
-							for(var i=0;i<data.result.SResult.length;i++){
-								$("#SResult").append("<li>"+JSON.stringify(data.result.SResult[i])+"</li>");
-							}
-						}else{
-							$("#SResult").append("<li>空</li>");
-						}
-						if(data.result.sub_RTL && data.result.sub_RTL.length){
-							for(var i=0;i<data.result.sub_RTL.length;i++){
-								$("#sub_RTL").append("<li>"+JSON.stringify(data.result.sub_RTL[i])+"</li>");
-							}
-								
-						}else{
-							$("#sub_RTL").append("<li>空</li>");
-						}
-						if(data.result.sub_ELL && data.result.sub_ELL.length){
-							for(var i=0;i<data.result.sub_ELL.length;i++){
-								$("#sub_ELL").append("<li>"+JSON.stringify(data.result.sub_ELL[i])+"</li>");
-							}
-								
-						}else{
-							$("#sub_ELL").append("<li>空</li>");
-						}
-						if(data.result.sub_EL && data.result.sub_EL.length){
-							for(var i=0;i<data.result.sub_EL.length;i++){
-								$("#sub_EL").append("<li>"+JSON.stringify(data.result.sub_EL[i])+"</li>");
-							}
-								
-						}else{
-							$("#sub_EL").append("<li>空</li>");
+							var temp = '<div class="result_seg"><h4>'+graphID+'</h4>'+
+							'<div><label>RTL</label><ul>'+rtl+'</ul></div>'+
+							'<div><label>ELL</label><ul>'+ell+'</ul></div>'+
+							'<div><label>EL</label><ul>'+el+'</ul></div>'+
+							'<div><label>TResult</label><ul>'+tresult+'</ul></div>'+
+							'<div><label>SResult</label><ul>'+sresult+'</ul></div>'+
+							'<div><label>sub_RTL</label><ul>'+sub_rtl+'</ul></div>'+
+							'<div><label>sub_ELL</label><ul>'+sub_ell+'</ul></div>'+
+							'<div><label>sub_EL</label><ul>'+sub_el+'</ul></div>'+
+							'</div>';
+							$("#result").append(temp);
 						}
 					}
 				},
