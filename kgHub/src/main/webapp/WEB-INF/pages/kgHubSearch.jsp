@@ -13,9 +13,15 @@
 
 .result_seg ul{
 	list-style: none;
+	padding: 0 0;
 }
 .result_seg ul li{
-	padding: 5px 2px;
+	padding: 8px 2px;
+	word-wrap: break-word;
+	word-break: normal;
+}
+.result_seg ul li:hover{
+	background-color: #ccc;
 }
 </style>
 </head>
@@ -36,7 +42,7 @@
 		<div class="col-lg-12">
 		<br/>
 		<h3>查询结果</h3>
-		<div id="result">
+		<div id="result" class="col-lg-12">
 		</div>
 		</div>
 	</div>
@@ -135,15 +141,15 @@ function getSearchResult(keyword) {
 									sub_el = "<li>空</li>";
 								}
 							}
-							var temp = '<div class="result_seg"><h4>'+graphID+'</h4>'+
-							'<div><label>RTL</label><ul>'+rtl+'</ul></div>'+
-							'<div><label>ELL</label><ul>'+ell+'</ul></div>'+
-							'<div><label>EL</label><ul>'+el+'</ul></div>'+
-							'<div><label>TResult</label><ul>'+tresult+'</ul></div>'+
-							'<div><label>SResult</label><ul>'+sresult+'</ul></div>'+
-							'<div><label>sub_RTL</label><ul>'+sub_rtl+'</ul></div>'+
-							'<div><label>sub_ELL</label><ul>'+sub_ell+'</ul></div>'+
-							'<div><label>sub_EL</label><ul>'+sub_el+'</ul></div>'+
+							var temp = '<div class="result_seg col-lg-12"><h4>'+graphID+'</h4>'+
+							'<div class="col-lg-12"><label>RTL</label><ul class="col-lg-12">'+rtl+'</ul></div>'+
+							'<div class="col-lg-12"><label>ELL</label><ul class="col-lg-12">'+ell+'</ul></div>'+
+							'<div class="col-lg-12"><label>EL</label><ul class="col-lg-12">'+el+'</ul></div>'+
+							'<div class="col-lg-12"><label>TResult</label><ul class="col-lg-12">'+tresult+'</ul></div>'+
+							'<div class="col-lg-12"><label>SResult</label><ul class="col-lg-12">'+sresult+'</ul></div>'+
+							'<div class="col-lg-12"><label>sub_RTL</label><ul class="col-lg-12">'+sub_rtl+'</ul></div>'+
+							'<div class="col-lg-12"><label>sub_ELL</label><ul class="col-lg-12">'+sub_ell+'</ul></div>'+
+							'<div class="col-lg-12"><label>sub_EL</label><ul class="col-lg-12">'+sub_el+'</ul></div>'+
 							'</div>';
 							$("#result").append(temp);
 						}

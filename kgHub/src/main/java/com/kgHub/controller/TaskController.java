@@ -49,8 +49,8 @@ public class TaskController {
 			MissionsWithBLOBs missionsWithBLOBs = new MissionsWithBLOBs();
 			missionsWithBLOBs.setRkeyword(text);
 			missionsWithBLOBs.setNkeyword(JSON.toJSONString(keywordList.get("n")));
-			missionsWithBLOBs.setVkeyword(JSON.toJSONString(keywordList.get("v")));
-			missionsWithBLOBs.setAkeyword(JSON.toJSONString(keywordList.get("ad")));
+			missionsWithBLOBs.setVkeyword(JSON.toJSONString(keywordList.get("n")));
+			missionsWithBLOBs.setAkeyword(JSON.toJSONString(keywordList.get("n")));
 			missionsWithBLOBs.setState(1);
 			missionsWithBLOBs.setUserID(2);
 			boolean missionID = missionService.insertMission(missionsWithBLOBs);
