@@ -141,7 +141,7 @@ function getSearchResult(keyword) {
 									sub_el = "<li>空</li>";
 								}
 							}
-							var temp = '<div class="result_seg col-lg-12"><h4>'+graphID+'</h4>'+
+							var temp = '<div class="result_seg col-lg-12"><h4>'+graphID+'(score:'+sub_result.weight+')</h4>'+
 							'<div class="col-lg-12"><label>RTL</label><ul class="col-lg-12">'+rtl+'</ul></div>'+
 							'<div class="col-lg-12"><label>ELL</label><ul class="col-lg-12">'+ell+'</ul></div>'+
 							'<div class="col-lg-12"><label>EL</label><ul class="col-lg-12">'+el+'</ul></div>'+

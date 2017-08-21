@@ -73,7 +73,6 @@ public class TaskController {
 							json.put("engine", graph.getSearchServers().get(0).getEngineClass());
 							json.put("subMissionID", childrenMission.getId());
 							String sub_result = HttpClientHandler.doPost(server.getEnterPath(), server.getHost(), server.getScheme(), JSON.toJSONString(json));
-							childrenMissionService.changeState(childrenMission.getId(), 3);
 							missionService.changeStateById(missionsWithBLOBs.getId(), 3);
 							result.put(graph.getId(), JSON.parse(sub_result));
 						}else{
