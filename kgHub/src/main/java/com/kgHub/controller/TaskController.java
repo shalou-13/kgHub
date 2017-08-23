@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.kgHub.methods.HanlpHandler;
+import com.kgHub.methods.UserPortraitHandler;
 import com.kgHub.methods.XMLExtendReader;
 import com.kgHub.pojo.ChildrenMissionsWithBLOBs;
 import com.kgHub.pojo.GraphNode;
@@ -36,6 +37,8 @@ public class TaskController {
 	private  MissionService missionService;
 	@Resource
 	private ChildrenMissionService childrenMissionService;
+	@Resource
+	private UserPortraitHandler userPortraitHandler;
 	
 	@RequestMapping(value="/searchGraph",method=RequestMethod.POST)
 	@ResponseBody
@@ -82,6 +85,7 @@ public class TaskController {
 						JsonHandler.writeJsonStreamFromResponse(response, JSONObject.parseObject(JSON.toJSONString(JsonHandler.writeJsontoResponse(3005, ""))).toString());
 					}
 				}
+				userPortraitHandler.computeUserPortrait(2);
 				JsonHandler.writeJsonStreamFromResponse(response, JSONObject.parseObject(JSON.toJSONString(JsonHandler.writeJsontoResponse(3000, result))).toString());
 				
 			}else{

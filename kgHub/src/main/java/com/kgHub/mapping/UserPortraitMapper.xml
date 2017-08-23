@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kgHub.dao.UserPortraitMapper">
+  <resultMap id="BaseResultMap" type="com.kgHub.pojo.UserPortrait">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userID" jdbcType="INTEGER" property="userID" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kgHub.pojo.UserPortrait">
+    <result column="portrait" jdbcType="LONGVARCHAR" property="portrait" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userID
+  </sql>
+  <sql id="Blob_Column_List">
+    portrait
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from userportrait
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from userportrait
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kgHub.pojo.UserPortrait">
+    insert into userportrait (id, userID, portrait
+      )
+    values (#{id,jdbcType=INTEGER}, #{userID,jdbcType=INTEGER}, #{portrait,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kgHub.pojo.UserPortrait">
+    insert into userportrait
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userID != null">
+        userID,
+      </if>
+      <if test="portrait != null">
+        portrait,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userID != null">
+        #{userID,jdbcType=INTEGER},
+      </if>
+      <if test="portrait != null">
+        #{portrait,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kgHub.pojo.UserPortrait">
+    update userportrait
+    <set>
+      <if test="userID != null">
+        userID = #{userID,jdbcType=INTEGER},
+      </if>
+      <if test="portrait != null">
+        portrait = #{portrait,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kgHub.pojo.UserPortrait">
+    update userportrait
+    set userID = #{userID,jdbcType=INTEGER},
+      portrait = #{portrait,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kgHub.pojo.UserPortrait">
+    update userportrait
+    set userID = #{userID,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByUserID" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from userportrait
+    where userID = #{userID,jdbcType=INTEGER}
+  </select>
+</mapper>

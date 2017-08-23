@@ -1,5 +1,7 @@
 package com.kgHub.service.impl;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -55,5 +57,11 @@ public class ChildrenMissionService implements IChildrenMissionService{
 		}
 		return true;
 	}
+
+	@Override
+	public ArrayList<ChildrenMissionsWithBLOBs> selectChildMissionsByUserID(Integer userID, String graphID) {
+		return this.childrenMissionsDao.selectChildMissionsByUserID(userID, graphID);
+	}
+
 	
 }

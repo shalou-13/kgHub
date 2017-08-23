@@ -165,4 +165,10 @@
       finishTime = #{finishTime,jdbcType=TIMESTAMP}
     where Id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectChildMissionsByUserID" resultMap="ResultMapWithBLOBs">
+    select 
+    cs.Id, cs.PId, cs.graphID, cs.state, cs.addTime, cs.finishTime, cs.Nkeyword, cs.Vkeyword, cs.Akeyword, cs.result
+    from childmissiontable cs, missiontable m
+    where m.userID = #{userID,jdbcType=INTEGER} and cs.PId = m.id and cs.graphID = #{graphID,jdbcType=VARCHAR}
+  </select>
 </mapper>
